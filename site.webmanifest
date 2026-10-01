@@ -1,0 +1,21 @@
+{
+  "name": "ANABHAY VENTURES",
+  "short_name": "ANABHAY",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080a0d",
+  "theme_color": "#080a0d",
+  "description": "ANABHAY VENTURES builds technology, products, and independent ventures focused on solving real-world problems.",
+  "icons": [
+    {
+      "src": "/assets/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
