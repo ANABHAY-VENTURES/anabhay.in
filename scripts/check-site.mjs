@@ -3,6 +3,7 @@ import {resolve,extname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const walk=dir=>readdirSync(dir,{withFileTypes:true}).filter(e=>!e.name.startsWith('.')).flatMap(e=>e.isDirectory()?walk(resolve(dir,e.name)):[resolve(dir,e.name)]);
 const files=walk(root),htmlFiles=files.filter(p=>p.endsWith('.html'));
@@ -25,9 +26,13 @@ for(const file of htmlFiles){
  for(const tag of html.matchAll(/<(?:a|link|script|img|input|select|textarea|button|label)\b[^>]*>/g)){
   const a=attrs(tag[0]);
   for(const attr of ['href','src'])if(a[attr]&&!/^https?:/.test(a[attr])){
-   const [path,hash]=a[attr].split('#');assert.ok(!path||path.startsWith('/'),`${file}: root relative ${a[attr]}`);
+   const [reference,hash]=a[attr].split('#');const [path,query]=reference.split('?');assert.ok(!path||path.startsWith('/'),`${file}: root relative ${a[attr]}`);
    let target=path?resolve(root,'.'+path):file;if(path.endsWith('/'))target=resolve(target,'index.html');
    assert.ok(existsSync(target),`${file}: missing ${a[attr]}`);
+   if(['/style.css','/script.js'].includes(path)){
+    const version=createHash('sha256').update(readFileSync(target,'utf8').replace(/\r\n/g,'\n')).digest('hex').slice(0,12);
+    assert.equal(new URLSearchParams(query).get('v'),version,`${file}: stale or missing asset version for ${path}`);
+   }
    if(hash){const targetHtml=readFileSync(target,'utf8');assert.ok(targetHtml.includes(`id="${hash}"`),`${file}: missing anchor ${hash}`);}
   }
   for(const attr of ['aria-describedby','aria-controls'])if(a[attr])for(const id of a[attr].split(' '))assert.ok(ids.includes(id),`${file}: missing ARIA target ${id}`);
@@ -37,7 +42,7 @@ for(const file of htmlFiles){
  for(const meta of ['og:title','og:description','og:url','og:image'])assert.ok(html.includes(`property="${meta}"`));
  assert.match(html,/<link rel="canonical" href="https:\/\/anabhay.in/);
  const json=html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);JSON.parse(json[1]);
- if(!file.endsWith(resolve(root,'index.html')))assert.ok(!html.includes('src="/script.js"'));
+ if(!file.endsWith(resolve(root,'index.html')))assert.ok(!/src="\/script\.js(?:[?"])/.test(html));
  assert.ok(!/IN THE MAKING|countdown|2027-01-01|COMING ALIVE/.test(html));
 }
 for(const file of files.filter(p=>['.js','.mjs'].includes(extname(p))))execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
