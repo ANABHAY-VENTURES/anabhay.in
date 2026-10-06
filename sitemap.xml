@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://anabhay.in/</loc>
-  </url>
+  <url><loc>https://anabhay.in/</loc></url>
+  <url><loc>https://anabhay.in/about/</loc></url>
+  <url><loc>https://anabhay.in/services/</loc></url>
+  <url><loc>https://anabhay.in/projects/</loc></url>
+  <url><loc>https://anabhay.in/projects/civicsync/</loc></url>
+  <url><loc>https://anabhay.in/projects/cognitive-mobility-platform/</loc></url>
+  <url><loc>https://anabhay.in/how-we-work/</loc></url>
+  <url><loc>https://anabhay.in/careers/</loc></url>
+  <url><loc>https://anabhay.in/contact/</loc></url>
 </urlset>

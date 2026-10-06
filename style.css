@@ -17,8 +17,6 @@ body{margin:0;background:var(--bg);color:var(--paper);font-family:Manrope,Arial,
 .identity small{font-weight:500;color:#747b82;margin-left:5px;letter-spacing:.12em}
 .mini-mark{width:39px;height:39px;border:1px solid rgba(197,138,74,.35);border-radius:50%;overflow:hidden;display:grid;place-items:center;background:#eee8dd}
 .mini-mark img{width:100%;height:100%;object-fit:cover}
-.build-state{font:500 10px "DM Mono",monospace;letter-spacing:.15em;color:#9299a0;display:flex;gap:9px;align-items:center}
-.build-state i{width:6px;height:6px;background:#c58a4a;border-radius:50%;box-shadow:0 0 18px #c58a4a;animation:pulse 1.7s infinite}
 @keyframes pulse{50%{opacity:.35;transform:scale(.65)}}
 
 main{width:min(1280px,calc(100% - 56px));margin:auto}
@@ -28,11 +26,6 @@ main{width:min(1280px,calc(100% - 56px));margin:auto}
 h1{font-size:clamp(70px,9.7vw,142px);line-height:.84;letter-spacing:-.085em;margin:0;font-weight:800}
 h1 span{color:transparent;-webkit-text-stroke:1px rgba(240,236,228,.55)}
 .statement{font-size:clamp(16px,1.7vw,20px);line-height:1.7;color:#aeb3b8;max-width:610px;margin:40px 0 0}
-.launch{margin-top:48px;display:flex;align-items:center;gap:22px}
-.launch-label{font:500 9px "DM Mono",monospace;letter-spacing:.18em;color:var(--gold2)}
-.date{font-size:28px;font-weight:700;letter-spacing:-.04em}
-.date b{color:#555b61;font-weight:400;margin:0 4px}
-.countdown{font:500 10px "DM Mono",monospace;color:#6e767d;letter-spacing:.12em;border-left:1px solid var(--line);padding-left:22px}
 
 .orbital{width:min(48vw,590px);aspect-ratio:1;position:relative;margin:auto;display:grid;place-items:center}
 .core{width:36%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:rgba(240,236,228,.94);box-shadow:0 0 100px rgba(197,138,74,.08),0 0 0 1px rgba(197,138,74,.45);position:relative;z-index:3;animation:float 5s ease-in-out infinite}
@@ -82,7 +75,100 @@ footer{width:min(1280px,calc(100% - 56px));margin:auto;padding:28px 0;color:#555
   .signal-strip{grid-template-columns:1fr}
   .signal-strip>div{border-right:0;border-bottom:1px solid var(--line)}
   .signal-strip>div:last-child{border-bottom:0}
-  .launch{flex-wrap:wrap}
-  .countdown{border-left:0;padding-left:0;width:100%}
   .crosshair{right:-30px;top:25%;opacity:.5}
+}
+
+/* Company pages extend the original landing-page visual foundation. */
+:focus-visible{outline:2px solid var(--gold2);outline-offset:5px}
+[hidden]{display:none!important}
+.skip-link{position:fixed;left:16px;top:12px;z-index:30;background:var(--paper);color:var(--bg);padding:12px 18px;transform:translateY(-150%);clip-path:inset(50%)}
+.skip-link:focus{transform:none;clip-path:none}
+p{line-height:1.75}
+.topbar{height:auto;min-height:86px;gap:24px}
+.identity{flex-shrink:0}
+.site-nav{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.site-nav a{font-size:11px;font-weight:600;color:#b3b7bc;text-decoration:none;white-space:nowrap;padding:14px 0}
+.site-nav a:hover,.site-nav a[aria-current]{color:var(--gold2)}
+.site-nav a[aria-current]{text-decoration:underline;text-underline-offset:7px}
+.site-nav .nav-cta{border:1px solid rgba(197,138,74,.55);padding:11px 15px;color:var(--paper)}
+.menu-toggle{background:transparent;border:1px solid var(--line);color:var(--paper);padding:10px 14px;font:500 12px 'DM Mono',monospace}
+.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px}
+.button{display:inline-flex;justify-content:center;align-items:center;gap:20px;padding:16px 22px;background:var(--gold2);border:1px solid var(--gold2);color:var(--bg);text-decoration:none;font:700 12px Manrope,Arial,sans-serif;cursor:pointer;line-height:1.5;width:max-content;max-width:100%;min-height:48px}
+.button:hover{background:var(--paper);border-color:var(--paper)}
+.button-secondary{background:transparent;color:var(--paper);border-color:rgba(240,236,228,.3)}
+.button-secondary:hover{background:rgba(240,236,228,.06);color:var(--paper)}
+.button:disabled{opacity:.6;cursor:wait}
+.hero .statement{max-width:560px}
+.section{padding:90px 0;border-bottom:1px solid var(--line)}
+h2{font-size:clamp(32px,4vw,58px);line-height:1.08;letter-spacing:-.055em;margin:0 0 25px}
+h2 em{font-style:normal;color:var(--muted)}
+.section p,.card p,.project-card p,.contact-layout p,.workflow p{color:#aeb3b8}
+.section .kicker{color:var(--gold2)}
+.lead{font-size:clamp(18px,2vw,23px);line-height:1.65}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:70px}
+.section-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:34px}
+.section-heading h2{margin-bottom:0}
+.text-link{display:inline-block;color:var(--gold2);font-size:13px;text-underline-offset:6px;margin-top:15px}
+.card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.card{padding:30px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+.card h3,.card h2{font-size:22px;line-height:1.3;letter-spacing:-.03em;margin:15px 0}
+.card p{font-size:14px;margin-bottom:0}
+.eyebrow{font:500 10px 'DM Mono',monospace;letter-spacing:.14em;color:var(--gold2)!important;line-height:1.7}
+.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.project-card{padding:40px;border:1px solid var(--line);background:radial-gradient(ellipse at top right,rgba(197,138,74,.065),transparent 70%);display:flex;flex-direction:column;align-items:flex-start}
+.project-card h3,.project-card h2{font-size:clamp(26px,3vw,38px);letter-spacing:-.04em;line-height:1.15;margin:18px 0 8px}
+.project-card .text-link{margin-top:auto;padding-top:20px}
+.careers-banner{display:flex;justify-content:space-between;align-items:center;gap:35px}
+.careers-banner h2{font-size:clamp(28px,3.3vw,46px)}
+.closing .button{position:relative;z-index:1}
+.company-footer{display:grid;grid-template-columns:1fr 1.4fr;gap:35px;padding:50px 0 25px;line-height:1.7;letter-spacing:0;font-family:Manrope,Arial,sans-serif;font-size:12px;color:#aeb3b8}
+.footer-brand{color:var(--paper);font-size:14px;font-weight:700;letter-spacing:.08em;text-decoration:none}
+.company-footer nav{display:flex;gap:18px;flex-wrap:wrap;align-content:start;justify-content:flex-end}
+.company-footer nav a,.footer-bottom a{color:#aeb3b8;text-decoration:none}
+.company-footer a:hover,.company-footer a[aria-current]{color:var(--gold2)}
+.footer-bottom{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;display:flex;justify-content:space-between;gap:20px;font:400 10px 'DM Mono',monospace}
+.page-intro{padding:100px 0 70px;border-bottom:1px solid var(--line)}
+.page-intro h1{font-size:clamp(54px,7.8vw,108px);line-height:.97;letter-spacing:-.065em;overflow-wrap:break-word}
+.page-intro .statement{max-width:760px}
+.prose{max-width:850px}
+.workflow{list-style:none;padding:0;margin:0;max-width:900px}
+.workflow li{display:grid;grid-template-columns:60px 1fr;gap:30px;padding:32px 0;border-bottom:1px solid var(--line)}
+.workflow li:last-child{border-bottom:0}
+.workflow h2{font-size:32px;margin:0 0 10px}
+.workflow p{margin:0;max-width:650px}
+.contact-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:75px}
+.contact-layout aside h2{font-size:36px}
+.notice{border:1px solid rgba(197,138,74,.4);padding:22px;margin-top:30px;font-size:14px}
+.notice strong{color:var(--gold2)}
+.notice p{margin-bottom:0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.form-field{margin-bottom:22px}
+.form-field label{display:block;font-size:13px;font-weight:600;color:var(--paper);margin-bottom:10px}
+input,select,textarea{width:100%;border:1px solid rgba(240,236,228,.28);background:#0d1014;color:var(--paper);padding:14px;font:400 16px Manrope,Arial,sans-serif;border-radius:0;min-height:48px}
+textarea{resize:vertical}
+input[aria-invalid=true],select[aria-invalid=true],textarea[aria-invalid=true]{border-color:#f0aa95}
+.form-field .field-error{color:#f0aa95;font-size:13px;margin:8px 0 0;line-height:1.5}
+.field-error:empty{display:none}
+.form-field .field-hint,#required-note{font-size:12px;color:#b0b5ba}
+.checkbox-label{display:flex!important;align-items:flex-start;gap:12px;line-height:1.65}
+.checkbox-label input{width:20px;min-height:20px;height:20px;flex-shrink:0;margin-top:2px;accent-color:var(--gold2)}
+#form-status:not(:empty){padding:18px;border:1px solid var(--gold);margin:0 0 25px;color:var(--paper);font-size:14px;line-height:1.7}
+@media(min-width:1001px){.menu-toggle{display:none}}
+@media(max-width:1100px){.site-nav{gap:13px}.identity{font-size:12px}.identity small{display:block;margin-left:0;font-size:9px}.topbar{gap:18px}}
+@media(max-width:1000px){.topbar{flex-wrap:wrap;padding:20px 0;min-height:86px;justify-content:space-between}.site-nav{width:100%;align-items:stretch;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}.site-nav a{padding:14px 5px;font-size:14px}.site-nav .nav-cta{margin:10px 0}.menu-enhanced .site-nav{display:none}.menu-enhanced .site-nav.is-open{display:flex}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.split,.contact-layout{gap:40px}}
+@media(max-width:650px){.section{padding:60px 0}.split,.contact-layout,.project-grid,.form-grid{grid-template-columns:1fr;gap:25px}.card-grid{grid-template-columns:1fr}.card{padding:26px}.project-card{padding:28px}.section-heading,.careers-banner{align-items:flex-start;flex-direction:column;gap:20px}.page-intro{padding:70px 0 55px}.page-intro h1{font-size:clamp(46px,11vw,70px)}.company-footer{grid-template-columns:1fr}.company-footer nav{justify-content:flex-start}.footer-bottom{flex-direction:column}.workflow li{grid-template-columns:35px 1fr;gap:15px}.closing{min-height:60vh}.closing h2{font-size:clamp(44px,11vw,72px)}.identity small{display:inline;margin-left:5px}.hero{gap:0}.hero .actions{gap:12px}.crosshair{pointer-events:none}.form-grid .form-field{margin-bottom:0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.cursor-glow{display:none}#field{display:none}}
+@media(pointer:coarse){.cursor-glow{display:none}}
+.orbital{overflow:clip}
+
+.closing{overflow:clip}
+
+/* Modest desktop navigation emphasis; mobile styles remain unchanged. */
+@media(min-width:1001px){
+  .site-nav{gap:24px}
+  .site-nav a{font-size:13px}
+  .site-nav .nav-cta{padding:12px 18px}
+}
+@media(min-width:1001px) and (max-width:1100px){
+  .site-nav{gap:16px}
 }
