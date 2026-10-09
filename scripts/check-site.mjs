@@ -14,6 +14,13 @@ for(const file of htmlFiles){
  const html=readFileSync(file,'utf8');
  assert.match(html,/<!doctype html>/i,file);assert.match(html,/<html lang="en">/,file);
  assert.equal((html.match(/<h1\b/g)||[]).length,1,`${file}: one h1`);
+ if(file===resolve(root,'contact/index.html')){
+  assert.doesNotMatch(html,/<form\b/i,'contact must not have a native submission mechanism');
+  assert.doesNotMatch(html,/\b(?:form|formaction|formmethod)\s*=/,'contact controls must not acquire form owners');
+  assert.doesNotMatch(html,/<(?:button|input)\b[^>]*type="(?:submit|image)"/);
+  assert.match(html,/<div id="enquiry-form" role="group" aria-label="Enquiry details"/);
+  assert.match(html,/<button class="button" type="button" disabled>Review enquiry/);
+ }
  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(new Set(ids).size,ids.length,`${file}: duplicate ids`);
  const stack=[];
  const stripped=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g,'<script></script>').replace(/<!--[\s\S]*?-->/g,'');
@@ -25,7 +32,21 @@ for(const file of htmlFiles){
  assert.equal(navs.length,2);mainNav??=navs[0];footerNav??=navs[1];assert.equal(navs[0],mainNav);assert.equal(navs[1],footerNav);
  for(const tag of html.matchAll(/<(?:a|link|script|img|input|select|textarea|button|label)\b[^>]*>/g)){
   const a=attrs(tag[0]);
-  for(const attr of ['href','src'])if(a[attr]&&!/^https?:/.test(a[attr])){
+  for(const attr of ['href','src'])if(a[attr]){
+   if(a[attr].startsWith('mailto:')){
+    assert.ok(attr==='href'&&tag[0].startsWith('<a '),`${file}: mailto must be an anchor`);
+    assert.match(a[attr],/^mailto:[^\s@?&#%]+@[^\s@?&#%]+\.[^\s@?&#%]+$/,`${file}: invalid mailto destination`);
+    continue;
+   }
+   if(/^https?:/.test(a[attr])){
+    const url=new URL(a[attr]);
+    if(url.hostname==='wa.me'){
+     assert.ok(attr==='href'&&tag[0].startsWith('<a '),`${file}: WhatsApp must be an anchor`);
+     assert.equal(a[attr],'https://wa.me/919832977184',`${file}: incorrect WhatsApp destination`);
+     if(a.target==='_blank')for(const protection of ['noopener','noreferrer'])assert.ok((a.rel||'').split(/\s+/).includes(protection),`${file}: missing ${protection}`);
+    }
+    continue;
+   }
    const [reference,hash]=a[attr].split('#');const [path,query]=reference.split('?');assert.ok(!path||path.startsWith('/'),`${file}: root relative ${a[attr]}`);
    let target=path?resolve(root,'.'+path):file;if(path.endsWith('/'))target=resolve(target,'index.html');
    assert.ok(existsSync(target),`${file}: missing ${a[attr]}`);
