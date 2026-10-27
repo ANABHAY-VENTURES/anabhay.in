@@ -1,0 +1,23 @@
+name: Review public Pages artifact
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/check-site.mjs
+      - run: node --test scripts/enquiry.test.mjs operations/tests/foundation.test.mjs operations/tests/remediation.test.mjs
+      - run: node scripts/build-pages.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reviewed-public-website
+          path: _site/
+          include-hidden-files: false
+          retention-days: 3
+# Deliberately no deployment step or push trigger.

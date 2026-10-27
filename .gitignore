@@ -13,3 +13,14 @@ desktop.ini
 *.tmp
 *.temp
 *.log
+
+# Local operations configuration and build output
+.env
+.env.*
+!.env.example
+.secrets/
+*.pem
+*.key
+operations/local/
+_site/
+operations/node_modules/

@@ -1,0 +1,12 @@
+# Defense for legacy branch/Jekyll publishing. Review Pages settings before push.
+exclude:
+  - operations
+  - scripts
+  - docs
+  - .env.example
+  - .secrets
+  - _site
+  - README.md
+  - CONTRIBUTING.md
+  - SECURITY.md
+  - LICENSE
